@@ -3,14 +3,14 @@ require '../src/numa_time'
 require '../src/weather'
 
 # TOKENをセット
-TOKEN = 'xoxb-286197969077-ftz9mq6P2V56G1Oirqc4Y416'
+
 TOKYO_CODE = 130010
 SAITAMA_CODE = 110010
 KUMAGAYA = 110020
 
 
 Slack.configure do |conf|
-  conf.token = TOKEN
+  conf.token = ENV['SLACK_API_TOKEN']
 end
 
 client = Slack::RealTime::Client.new
@@ -21,9 +21,9 @@ end
 
 client.on :message do |data|
   case data.text
-    when 'こんにちは'
+    when 'Hello numa_bot'
       client.message channel: data.channel, text: "こんにちは！<@#{data.user}>さん。"
-    when client.self.name
+    when 'numa_bot'
       client.message channel: data.channel, text: "<@#{data.user}>さん。何か用？"
     when '今の時間'
       numa_time_reply = NumaTime.new
