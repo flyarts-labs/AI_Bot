@@ -2,15 +2,12 @@ require 'slack-ruby-client'
 require '../src/numa_time'
 require '../src/weather'
 
+# OpenWeatherAPI key
+API_KEY = '61816105fcfda6e6f29e0b2f0fa37374'
+
 # TOKENをセット
-
-TOKYO_CODE = 130010
-SAITAMA_CODE = 110010
-KUMAGAYA = 110020
-
-
 Slack.configure do |conf|
-  conf.token = ENV['SLACK_API_TOKEN']
+  conf.token = 'API_TOKEN'
 end
 
 client = Slack::RealTime::Client.new
@@ -27,16 +24,20 @@ client.on :message do |data|
       client.message channel: data.channel, text: "<@#{data.user}>さん。何か用？"
     when '今の時間'
       numa_time_reply = NumaTime.new
-      client.message channel: data.channel, text: "<@#{data.user}>#{numa_time_reply.say_now_time}"
-    when '東京の天気予報'
-      weather = Weather.new
-      client.message channel: data.channel, text: weather.weather_info(TOKYO_CODE)
-    when 'さいたまの天気予報'
-      weather = Weather.new
-      client.message channel: data.channel, text: weather.weather_info(SAITAMA_CODE)
-    when '熊谷の天気予報'
-      weather = Weather.new
-      client.message channel: data.channel, text: weather.weather_info(KUMAGAYA)
+      client.message channel: data.channel, text: "<@#{data.user}>#{numa_time_reply.say_now_time}だよ"
+    when '仙台の天気'
+      weather = Weather.new(API_KEY)
+      numa_time_reply = NumaTime.new
+      client.message channel: data.channel, text: numa_time_reply.say_now_time + 'の仙台の' + weather.weather_info("Sendai-shi")
+    when '東京の天気'
+      weather = Weather.new(API_KEY)
+      client.message channel: data.channel, text: '現在の東京の' + weather.weather_info("Tokyo")
+    when 'さいたまの天気'
+      weather = Weather.new(API_KEY)
+      client.message channel: data.channel, text: '現在のさいたまの' + weather.weather_info("saitama")
+    when '熊谷の天気'
+      weather = Weather.new(API_KEY)
+      client.message channel: data.channel, text: '現在の熊谷の' + weather.weather_info("kumagaya")
     when 'ぬまきゅんすき'
       client.message channel: data.channel, text: "私も<@#{data.user}>さんが好きだよ！"
     when 'ぬまきゅん、なぐさめて'
