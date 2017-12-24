@@ -1,5 +1,14 @@
 # numa_bot
 The bot of FlyArts
+# Set up
+Ruby環境前提
+```
+bundle install
+```
+起動
+```
+bundle exec ruby slack_client.rb
+```
 # How to use
 ### 呼び出すだけ
 ```numa_bot```
