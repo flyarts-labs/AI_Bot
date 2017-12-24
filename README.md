@@ -1,5 +1,6 @@
 # numa_bot
 The bot of FlyArts
+身内botなので使うならslack_client.rbのメッセージ部分を書き換えて使うと良いと思います。
 # Set up
 Ruby環境前提
 ```
