@@ -1,30 +1,57 @@
 require 'slack-ruby-client'
-require '../src/numa_time'
-require '../src/weather'
+require './numa_time'
+require './weather'
 
 # OpenWeatherAPI key
-API_KEY = '61816105fcfda6e6f29e0b2f0fa37374'
+API_KEY = ENV['W_APIKEY']
 
 # TOKENをセット
 Slack.configure do |conf|
-  conf.token = 'API_TOKEN'
+  conf.token = ENV['API_TOKEN']
 end
 
 client = Slack::RealTime::Client.new
 
 client.on :hello do
-  puts "Successfully connected, welcome '#{client.self.name}' to the '#{client.team.name}' team at https://#{client.team.domain}.slack.com."
+  puts 'Successfully connected.'
+  puts "Welcome #{client.self.name} to the #{client.team.name}"
+  puts "Slack team at https://#{client.team.domain}.slack.com."
 end
 
 client.on :message do |data|
   case data.text
-    when 'Hello numa_bot'
-      client.message channel: data.channel, text: "こんにちは！<@#{data.user}>さん。"
-    when 'numa_bot'
+    when 'bot usage'
+      usage_str = "　
+      キズナアイbotの使い方だよ　```
+      呼び出すだけ
+      「アイちゃん」
+
+      使いかたを聞く
+      「Bot usage」
+
+      慰めてもらう
+      「アイちゃん、なぐさめて」
+
+      告白してみる
+      「アイちゃんすき」
+
+      時間を聞く
+      「今の時間」
+
+      現在の天気をを聞く
+      「〜の天気」
+      天気の情報取得はOpenWeatherMapのAPIを使っています。
+      今の所天気が取れる場所は仙台、東京、さいたま、熊谷です。
+      ```
+      "
+      client.message channel: data.channel, text: usage_str
+    when 'アイちゃん'
       client.message channel: data.channel, text: "<@#{data.user}>さん。何か用？"
     when '今の時間'
       numa_time_reply = NumaTime.new
       client.message channel: data.channel, text: "<@#{data.user}>#{numa_time_reply.say_now_time}だよ"
+    when 'キズナアイのおしりでイキます'
+      client.message channel: data.channel, text: "その話はダメだよ！"
     when '仙台の天気'
       weather = Weather.new(API_KEY)
       numa_time_reply = NumaTime.new
@@ -37,10 +64,10 @@ client.on :message do |data|
       client.message channel: data.channel, text: '現在のさいたまの' + weather.weather_info("saitama")
     when '熊谷の天気'
       weather = Weather.new(API_KEY)
-      client.message channel: data.channel, text: '現在の熊谷の' + weather.weather_info("kumagaya")
-    when 'ぬまきゅんすき'
+      client.message channel: data.channel, text: '現在の熊谷の' + weather.weather_info(data.text)
+    when 'アイちゃんすき'
       client.message channel: data.channel, text: "私も<@#{data.user}>さんが好きだよ！"
-    when 'ぬまきゅん、なぐさめて'
+    when 'アイちゃん、なぐさめて'
       client.message channel: data.channel, text: "<@#{data.user}>辛い時は体を休めてね"
   end
 end
@@ -54,4 +81,5 @@ client.on :closed do |_data|
 end
 # Bot start
 client.start!
+
 

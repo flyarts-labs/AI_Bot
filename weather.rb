@@ -1,7 +1,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
-require '../src/parser'
+require './parser'
 
 class Weather
   def initialize(api_key)
