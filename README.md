@@ -26,3 +26,4 @@ bot usage
 # 要望、意見など
 何かあればSlackかGitHubにissue立てて欲しいです。
 
+Copyright © 2018 FlyArts All Rights Reserved.
