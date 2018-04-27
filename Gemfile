@@ -5,3 +5,4 @@ ruby '2.4.1'
 # for Slack bot
 gem 'slack-ruby-client'
 
+gem 'faye-websocket'

@@ -5,6 +5,7 @@ require './weather'
 # OpenWeatherAPI key
 API_KEY = ENV['W_APIKEY']
 
+
 # TOKENをセット
 Slack.configure do |conf|
   conf.token = ENV['API_TOKEN']
