@@ -3,7 +3,7 @@ require './numa_time'
 require './weather'
 
 # OpenWeatherAPI key
-API_KEY = ENV['W_APIKEY']
+API_KEY = ENV['W_API_KEY']
 
 
 # TOKENをセット
