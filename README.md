@@ -25,5 +25,9 @@ bot usage
 ```東京の天気```
 # 要望、意見など
 何かあればSlackかGitHubにissue立てて欲しいです。
+# 著作権に関して
+これはキズナアイの二次創作物に当たります。キズナアイの権利は
 
-Copyright © 2018 FlyArts All Rights Reserved.
+Project A.I.に帰属するものであり、このossもそれに従います。
+
+なおソースコードはMITライセンスの元で公開されてるものとします。
