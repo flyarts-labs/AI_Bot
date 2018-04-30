@@ -42,7 +42,7 @@ client.on :message do |data|
       現在の天気をを聞く
       「〜の天気」
       天気の情報取得はOpenWeatherMapのAPIを使っています。
-      今の所天気が取れる場所は仙台、東京、さいたま、熊谷です。
+      今の所天気が取れる場所は仙台、東京、さいたま、熊谷、つくばです。
       ```
       "
       client.message channel: data.channel, text: usage_str
@@ -65,6 +65,9 @@ client.on :message do |data|
     when '熊谷の天気'
       weather = Weather.new(API_KEY)
       client.message channel: data.channel, text: '現在の熊谷の' + weather.weather_info("kumagaya")
+    when 'つくばの天気'
+      weather = Weather.new(API_KEY)
+      client.message channel: data.channel, text: '現在のつくばの' + weather.weather_info("Tsukuba")
     when 'アイちゃんすき'
       client.message channel: data.channel, text: ["私も<@#{data.user}>さんが好きだよ！","ふえ！？",
                                                    "<@#{data.user}>ちょっと優しくしたくらいで告ってくるとかキモｗオタク乙","<@#{data.user}>ごめんなさい"].sample
