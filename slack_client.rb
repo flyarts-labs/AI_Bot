@@ -65,6 +65,9 @@ client.on :message do |data|
     when '熊谷の天気'
       weather = Weather.new(API_KEY)
       client.message channel: data.channel, text: '現在の熊谷の' + weather.weather_info("kumagaya")
+    when 'つくばの天気'
+      weather = Weather.new(API_KEY)
+      client.message channel: data.channel, text: '現在のつくばの' + weather.weather_info("Tsukuba")
     when 'アイちゃんすき'
       client.message channel: data.channel, text: ["私も<@#{data.user}>さんが好きだよ！","ふえ！？",
                                                    "<@#{data.user}>ちょっと優しくしたくらいで告ってくるとかキモｗオタク乙","<@#{data.user}>ごめんなさい"].sample
