@@ -55,8 +55,7 @@ client.on :message do |data|
       client.message channel: data.channel, text: "その話はダメだよ！"
     when '仙台の天気'
       weather = Weather.new(API_KEY)
-      numa_time_reply = NumaTime.new
-      client.message channel: data.channel, text: numa_time_reply.say_now_time + 'の仙台の' + weather.weather_info("Sendai-shi")
+      client.message channel: data.channel, text: '現在の仙台の' + weather.weather_info("Sendai-shi")
     when '東京の天気'
       weather = Weather.new(API_KEY)
       client.message channel: data.channel, text: '現在の東京の' + weather.weather_info("Tokyo")
@@ -67,7 +66,8 @@ client.on :message do |data|
       weather = Weather.new(API_KEY)
       client.message channel: data.channel, text: '現在の熊谷の' + weather.weather_info("kumagaya")
     when 'アイちゃんすき'
-      client.message channel: data.channel, text: "私も<@#{data.user}>さんが好きだよ！"
+      client.message channel: data.channel, text: ["私も<@#{data.user}>さんが好きだよ！","ふえ！？",
+                                                   "<@#{data.user}>ちょっと優しくしたくらいで告ってくるとかキモｗオタク乙","<@#{data.user}>ごめんなさい"].sample
     when 'アイちゃん、なぐさめて'
       client.message channel: data.channel, text: "<@#{data.user}>辛い時は体を休めてね"
   end
